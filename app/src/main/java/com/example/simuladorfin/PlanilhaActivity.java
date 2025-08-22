@@ -1,6 +1,8 @@
 package com.example.simuladorfin;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -63,6 +65,13 @@ public class PlanilhaActivity extends AppCompatActivity {
                 snackbar.show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_planilha, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void gerarPlanilhaPrice() {
