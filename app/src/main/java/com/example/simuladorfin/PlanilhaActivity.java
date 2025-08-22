@@ -78,14 +78,10 @@ public class PlanilhaActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.it_price:
-                Toast.makeText(this,"Acessou o método Price", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.it_sacre:
-                Toast.makeText(this,"Acessou o método Sacre", Toast.LENGTH_SHORT).show();
-                break;
-        }
+        if(item.getItemId()==R.id.it_price)
+            Toast.makeText(this,"Acessou o método Price", Toast.LENGTH_SHORT).show();
+        if(item.getItemId()==R.id.it_sacre)
+            Toast.makeText(this,"Acessou o método Sacre", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
