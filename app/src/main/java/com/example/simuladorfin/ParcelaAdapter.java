@@ -27,9 +27,9 @@ public class ParcelaAdapter extends ArrayAdapter<Parcela> {
                     getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(this.resource,parent,false);
         }
-        TextView tvNumero=convertView.findViewById(R.id.tvNumero);
-        TextView tvParcela2=convertView.findViewById(R.id.tvParcela2);
-        TextView tvSaldo=convertView.findViewById(R.id.tvSaldo);
+        TextView tvNumero=convertView.findViewById(R.id.tvNumeroSacre);
+        TextView tvParcela2=convertView.findViewById(R.id.tvParcelaSacre);
+        TextView tvSaldo=convertView.findViewById(R.id.tvSaldoSacre);
         tvNumero.setText(""+getItem(position).getNum());
         tvParcela2.setText(String.format("%.2f",getItem(position).getValor()));
         tvSaldo.setText(String.format("%.2f",getItem(position).getSaldo()));

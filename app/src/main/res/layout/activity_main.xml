@@ -16,19 +16,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Valor do Empréstimo"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/etValor"
-        android:layout_width="match_parent"
+        android:layout_width="191dp"
         android:layout_height="wrap_content"
-        android:background="#FFEB3B"
+        android:background="#303F9F"
         android:ems="10"
         android:hint="Informe o valor do empréstimo"
         android:inputType="numberDecimal"
         android:text="0.00"
         android:textAlignment="center"
-        android:textColor="#095F2C"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold" />
 

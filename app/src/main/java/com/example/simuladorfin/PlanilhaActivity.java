@@ -78,11 +78,35 @@ public class PlanilhaActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.it_price)
+        if(item.getItemId()==R.id.it_price){
+            gerarPlanilhaPrice();
             Toast.makeText(this,"Acessou o método Price", Toast.LENGTH_SHORT).show();
-        if(item.getItemId()==R.id.it_sacre)
+        }
+        if(item.getItemId()==R.id.it_sacre){
+            gerarPlanilhaSACRE();
             Toast.makeText(this,"Acessou o método Sacre", Toast.LENGTH_SHORT).show();
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    private void gerarPlanilhaSACRE() {
+        List<Parcela> parcelaList = new ArrayList<>();
+        double jurosParcela, saldoDevedor = valor;
+        double amortizacao = valor / prazo;
+
+        for (int i = 1; i <= prazo; i++) {
+            jurosParcela = saldoDevedor * (juros / 100);
+            double prestacao = amortizacao + jurosParcela;
+            saldoDevedor -= amortizacao;
+
+            Parcela p = new Parcela(i, prestacao, jurosParcela, amortizacao, saldoDevedor);
+            parcelaList.add(p);
+        }
+
+        ParcelaAdapter parcelaAdapter = new ParcelaAdapter(this,
+                R.layout.item_layout, parcelaList);
+        listView.setAdapter(parcelaAdapter);
     }
 
     private void gerarPlanilhaPrice() {

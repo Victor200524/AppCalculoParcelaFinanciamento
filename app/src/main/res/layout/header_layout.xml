@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="#181315">
+    android:background="#303F9F">
 
     <TextView
-        android:id="@+id/tvNumero"
+        android:id="@+id/tvNumeroSacre"
         android:layout_width="32dp"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvParcela2"
+        app:layout_constraintEnd_toStartOf="@+id/tvParcelaSacre"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvParcela2"
+        android:id="@+id/tvParcelaSacre"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:text="Parcela R$"
@@ -29,13 +29,13 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tvSaldo"
+        app:layout_constraintEnd_toStartOf="@+id/tvSaldoSacre"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvNumero"
+        app:layout_constraintStart_toEndOf="@+id/tvNumeroSacre"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvSaldo"
+        android:id="@+id/tvSaldoSacre"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Saldo Devedor"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tvParcela2"
+        app:layout_constraintStart_toEndOf="@+id/tvParcelaSacre"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.534" />
 </androidx.constraintlayout.widget.ConstraintLayout>
