@@ -28,6 +28,9 @@ public class PlanilhaActivity extends AppCompatActivity {
     private double parcela=0,valor,juros;
     private int prazo;
 
+    private View footerView;
+    private TextView tvTotalJuros;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +47,18 @@ public class PlanilhaActivity extends AppCompatActivity {
         valor=getIntent().getDoubleExtra("valor",0);
         juros=getIntent().getDoubleExtra("juros",0);
         prazo=getIntent().getIntExtra("prazo",0);
+
+        listView.addHeaderView(getLayoutInflater().inflate(R.layout.header_layout, listView, false));
+
+        // Footer
+        footerView = getLayoutInflater().inflate(R.layout.footer_layout, listView, false);
+        tvTotalJuros = footerView.findViewById(R.id.tvTotalJuros);
+        listView.addFooterView(footerView);
+
         tvValor.setText(""+valor);
         tvJuros2.setText(""+juros);
         parcela=Price.calcParcela(valor,juros,prazo);
-        listView.addHeaderView(getLayoutInflater().inflate(R.layout.header_layout, listView,false));
+
         gerarPlanilhaPrice();
         //gerando evento para o listview
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,34 +103,51 @@ public class PlanilhaActivity extends AppCompatActivity {
 
     private void gerarPlanilhaSACRE() {
         List<Parcela> parcelaList = new ArrayList<>();
-        double jurosParcela, saldoDevedor = valor;
+        double saldoDevedor = valor;
         double amortizacao = valor / prazo;
+        double totalJuros = 0.0;
 
         for (int i = 1; i <= prazo; i++) {
-            jurosParcela = saldoDevedor * (juros / 100);
+            double jurosParcela = saldoDevedor * (juros / 100.0);
+            totalJuros += jurosParcela;
+
             double prestacao = amortizacao + jurosParcela;
             saldoDevedor -= amortizacao;
+            if (saldoDevedor < 0) saldoDevedor = 0;
 
-            Parcela p = new Parcela(i, prestacao, jurosParcela, amortizacao, saldoDevedor);
-            parcelaList.add(p);
+            parcelaList.add(new Parcela(i, prestacao, jurosParcela, amortizacao, saldoDevedor));
         }
 
-        ParcelaAdapter parcelaAdapter = new ParcelaAdapter(this,
-                R.layout.item_layout, parcelaList);
+        if (tvTotalJuros != null) {
+            tvTotalJuros.setText(String.format("Total de juros pagos: R$ %.2f", totalJuros));
+        }
+
+        ParcelaAdapter parcelaAdapter = new ParcelaAdapter(this, R.layout.item_layout, parcelaList);
         listView.setAdapter(parcelaAdapter);
     }
+
 
     private void gerarPlanilhaPrice() {
-        List<Parcela> parcelaList=new ArrayList<>();
-        double jurosParcela, saldoDevedor=valor;
-        for(int i=1; i<=prazo; i++){
-            jurosParcela=saldoDevedor*juros/100;
-            saldoDevedor-=parcela-jurosParcela;
-            Parcela p = new Parcela(i,parcela,jurosParcela,parcela-jurosParcela,saldoDevedor);
+        List<Parcela> parcelaList = new ArrayList<>();
+        double jurosParcela, saldoDevedor = valor;
+        double totalJuros = 0.0;
+
+        for (int i = 1; i <= prazo; i++) {
+            jurosParcela = saldoDevedor * juros / 100;
+            totalJuros += jurosParcela;
+
+            saldoDevedor -= parcela - jurosParcela;
+            Parcela p = new Parcela(i, parcela, jurosParcela, parcela - jurosParcela, saldoDevedor);
             parcelaList.add(p);
         }
-        ParcelaAdapter parcelaAdapter=new ParcelaAdapter(this,
-                R.layout.item_layout, parcelaList);
+
+        // Atualiza o footer com o total de juros
+        if (tvTotalJuros != null) {
+            tvTotalJuros.setText(String.format("Total de juros pagos: R$ %.2f", totalJuros));
+        }
+
+        ParcelaAdapter parcelaAdapter = new ParcelaAdapter(this, R.layout.item_layout, parcelaList);
         listView.setAdapter(parcelaAdapter);
     }
+
 }
